@@ -34,16 +34,8 @@ app.layout = html.Div([
 )
 
 def update_graph(value):
-    dff = df[df.region == value]
+    dff = df[df.region == value] if value != "all" else df
     return px.line(dff, x='date', y='sales')
-
-# @callback(
-#     Output('graph-content', 'figure'),
-#     Input('dropdown-selection', 'value')
-# )
-# def update_graph(value):
-#     dff = df[df.region==value]
-#     return px.line(dff, x='date', y='sales')
 
 if __name__ == '__main__':
     app.run(debug=True)
