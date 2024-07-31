@@ -19,7 +19,7 @@ app_title = html.H1(
   children='Pink Morsel product sales',
   style={'marginTop': '40px'})
 
-radio_btns = dcc.RadioItems(options=radio_values, value='north', id='controls-and-radio-item', inline=True)
+radio_btns = dcc.RadioItems(options=radio_values, value='all', id='controls-and-radio-item', inline=True)
 graph = dcc.Graph(id="graph-content")
 data_table = dash_table.DataTable(data=df.to_dict('records'), page_size=11, style_table={'overflowX': 'auto'})
 
