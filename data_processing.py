@@ -19,7 +19,7 @@ def processData():
     df['price'] = df.price.str.lstrip('$').astype(float)
     df['sales'] = df.price * df.quantity
 
-    df = df[['quantity', 'date', 'region']].rename(columns={
+    df = df[['sales', 'date', 'region']].rename(columns={
       'sales': 'Sales',
       'date': 'Date',
       'region': 'Region'
