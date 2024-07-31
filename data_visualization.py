@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from dash import Dash, html, callback, Output, Input, dcc, dash_table
+from dash import Dash, html, callback, Output, Input, dcc, dash_table, ctx
 import plotly.express as px
 import dash_bootstrap_components as dbc
 
@@ -15,7 +15,8 @@ app = Dash(__name__, external_stylesheets=external_stylesheets)
 def headerTitle():
   title = html.H1(
   children='Pink Morsel product sales',
-  style={ "textAlign": "center"})
+  style={ "textAlign": "center"},
+  id="app-title")
 
   return title
 
