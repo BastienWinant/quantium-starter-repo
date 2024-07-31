@@ -2,37 +2,38 @@ import os
 import pandas as pd
 from dash import Dash, html, callback, Output, Input, dcc, dash_table
 import plotly.express as px
+import dash_bootstrap_components as dbc
 
 DATA_FILEPATH = os.path.abspath('data/output.csv')
 
 df = pd.read_csv(DATA_FILEPATH)
 
-app = Dash()
+external_stylesheets = [dbc.themes.BOOTSTRAP]
+app = Dash(__name__, external_stylesheets=external_stylesheets)
 
-dropdown_values = df.Region.unique().tolist()
-dropdown_values.insert(0, 'all')
+radio_values = df.Region.unique().tolist()
+radio_values.insert(0, 'all')
 
 
 app_title = html.H1(
   children='Pink Morsel product sales',
-  style={
-    'textAlign': 'center',
-    'fontFamily': 'sans-serif'
-  })
-region_dropdown = dcc.Dropdown(dropdown_values, 'all', id="dropdown-select")
+  style={'marginTop': '40px'})
+
+radio_btns = dcc.RadioItems(options=radio_values, value='north', id='controls-and-radio-item', inline=True)
 graph = dcc.Graph(id="graph-content")
 data_table = dash_table.DataTable(data=df.to_dict('records'), page_size=11, style_table={'overflowX': 'auto'})
 
 app.layout = [
   app_title,
-  region_dropdown,
+  html.Hr(),
+  html.Div(radio_btns),
   graph,
   data_table
 ]
 
 @callback(
   Output("graph-content", "figure"),
-  Input("dropdown-select", "value")
+  Input("controls-and-radio-item", "value")
 )
 def update_graph(value):
   if value == "all":
