@@ -13,6 +13,9 @@ def processData():
     file_path = os.path.abspath(f'data/{filename}')
     df = pd.read_csv(file_path, low_memory=False)
 
+    df = df.loc[df['product'] == "pink morsel", :]
+
+    # convert price to numerical and compute sales
     df['price'] = df.price.str.lstrip('$').astype(float)
     df['sales'] = df.price * df.quantity
 
